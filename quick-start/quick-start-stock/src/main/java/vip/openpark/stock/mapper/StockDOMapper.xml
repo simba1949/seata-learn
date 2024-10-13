@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.openpark.stock.mapper.StockDOMapper">
+  <resultMap id="BaseResultMap" type="vip.openpark.stock.domain.StockDO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="used" jdbcType="INTEGER" property="used" />
+    <result column="residue" jdbcType="INTEGER" property="residue" />
+  </resultMap>
+</mapper>
