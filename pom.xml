@@ -9,8 +9,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>seata-facade</module>
-        <module>quick-start</module>
+        <module>seata-api</module>
+        <module>quick-start-at</module>
     </modules>
 
     <properties>
