@@ -1,4 +1,4 @@
-package vip.openpark.api;
+package vip.openpark.api.quick.start.at;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @since 2024/10/13 15:59
  */
 @FeignClient(name = "quick-start-at-stock")
-public interface StockFacade {
+public interface AtStockFacade {
 	/**
 	 * 扣减库存
 	 *

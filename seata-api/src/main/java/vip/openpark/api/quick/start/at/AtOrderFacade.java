@@ -1,4 +1,4 @@
-package vip.openpark.api;
+package vip.openpark.api.quick.start.at;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @version 2024/10/13
  * @since 2024/10/13 16:45
  */
-public interface OrderFacade {
+public interface AtOrderFacade {
 	/**
 	 * 创建订单
 	 * @param userId 创建人

@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import vip.openpark.api.OrderFacade;
+import vip.openpark.api.quick.start.at.AtOrderFacade;
 import vip.openpark.at.order.service.OrderService;
 
 /**
@@ -15,7 +15,7 @@ import vip.openpark.at.order.service.OrderService;
  */
 @Slf4j
 @RestController
-public class OrderController implements OrderFacade {
+public class OrderController implements AtOrderFacade {
 	@Resource
 	private OrderService orderService;
 

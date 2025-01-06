@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.WeekendSqls;
-import vip.openpark.api.AccountFacade;
-import vip.openpark.api.StockFacade;
+import vip.openpark.api.quick.start.at.AtAccountFacade;
+import vip.openpark.api.quick.start.at.AtStockFacade;
 import vip.openpark.at.order.domain.OrderDO;
 import vip.openpark.at.order.mapper.OrderDOMapper;
 
@@ -26,8 +26,8 @@ import java.math.BigDecimal;
 public class OrderService {
 	private final OrderDOMapper orderDOMapper;
 
-	private final StockFacade stockFacade;
-	private final AccountFacade accountFacade;
+	private final AtStockFacade atStockFacade;
+	private final AtAccountFacade atAccountFacade;
 
 	@GlobalTransactional(name = "order-stock-account", rollbackFor = Exception.class)
 	public void createOrder(Long userId, Long productId, Integer quantity) {
@@ -44,7 +44,7 @@ public class OrderService {
 		log.info("创建订单完成");
 
 		log.info("开始扣减库存");
-		Boolean deduct = stockFacade.deduct(productId, quantity);
+		Boolean deduct = atStockFacade.deduct(productId, quantity);
 		log.info("扣减库存结果:{}", deduct);
 		if (!deduct) {
 			log.info("扣减库存失败，订单回滚");
@@ -52,7 +52,7 @@ public class OrderService {
 		}
 
 		log.info("开始扣减余额");
-		Boolean deduct1 = accountFacade.deduct(userId, BigDecimal.TEN);
+		Boolean deduct1 = atAccountFacade.deduct(userId, BigDecimal.TEN);
 		log.info("扣减余额结果:{}", deduct1);
 		if (!deduct1) {
 			log.info("扣减余额失败，订单回滚");

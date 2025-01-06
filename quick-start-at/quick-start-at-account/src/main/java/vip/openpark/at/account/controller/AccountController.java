@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vip.openpark.at.account.service.AccountService;
-import vip.openpark.api.AccountFacade;
+import vip.openpark.api.quick.start.at.AtAccountFacade;
 
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class AccountController implements AccountFacade {
+public class AccountController implements AtAccountFacade {
 	private final AccountService accountService;
 
 	@Override

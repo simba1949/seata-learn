@@ -11,6 +11,7 @@
     <modules>
         <module>seata-api</module>
         <module>quick-start-at</module>
+        <module>quick-start-xa</module>
     </modules>
 
     <properties>

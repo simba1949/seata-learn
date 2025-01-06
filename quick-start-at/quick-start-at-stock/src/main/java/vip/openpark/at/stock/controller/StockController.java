@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import vip.openpark.api.StockFacade;
+import vip.openpark.api.quick.start.at.AtStockFacade;
 import vip.openpark.at.stock.service.StockService;
 
 import java.util.concurrent.TimeUnit;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class StockController implements StockFacade {
+public class StockController implements AtStockFacade {
 	private final StockService stockService;
 
 	@Override
