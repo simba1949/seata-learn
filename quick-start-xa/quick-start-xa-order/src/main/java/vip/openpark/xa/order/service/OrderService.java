@@ -1,6 +1,7 @@
-package vip.openpark.at.order.service;
+package vip.openpark.xa.order.service;
 
 import io.seata.core.context.RootContext;
+import io.seata.core.model.BranchType;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,17 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.WeekendSqls;
-import vip.openpark.api.quick.start.at.AtAccountFacade;
-import vip.openpark.api.quick.start.at.AtStockFacade;
-import vip.openpark.at.order.domain.OrderDO;
-import vip.openpark.at.order.mapper.OrderDOMapper;
+import vip.openpark.api.quick.start.xa.XaAccountFacade;
+import vip.openpark.api.quick.start.xa.XaStockFacade;
+import vip.openpark.xa.order.domain.OrderDO;
+import vip.openpark.xa.order.mapper.OrderDOMapper;
 
 import java.math.BigDecimal;
 
 /**
  * @author anthony
- * @version 2024/10/13
- * @since 2024/10/13 19:24
+ * @version 2025/1/6
+ * @since 2025/1/6 15:05
  */
 @Slf4j
 @Service
@@ -26,14 +27,16 @@ import java.math.BigDecimal;
 public class OrderService {
 	private final OrderDOMapper orderDOMapper;
 
-	private final AtStockFacade atStockFacade;
-	private final AtAccountFacade atAccountFacade;
+	private final XaStockFacade xaStockFacade;
+	private final XaAccountFacade xaAccountFacade;
 
-	@GlobalTransactional(name = "at-order-stock-account", rollbackFor = Exception.class)
+	@GlobalTransactional(name = "xa-order-stock-account", rollbackFor = Exception.class)
 	public void createOrder(Long userId, Long productId, Integer quantity) {
 		// 获取当前全局事务id（重要，但是可忽略）
 		String xid = RootContext.getXID();
 		log.info("全局事务id:{}", xid);
+		BranchType branchType = RootContext.getBranchType();
+		log.info("当前分支事务类型:{}", branchType);
 
 		log.info("开始创建订单");
 		OrderDO orderDO = buildOrder(userId, productId, quantity);
@@ -44,7 +47,7 @@ public class OrderService {
 		log.info("创建订单完成");
 
 		log.info("开始扣减库存");
-		Boolean deduct = atStockFacade.deduct(productId, quantity);
+		Boolean deduct = xaStockFacade.deduct(productId, quantity);
 		log.info("扣减库存结果:{}", deduct);
 		if (!deduct) {
 			log.info("扣减库存失败，订单回滚");
@@ -52,16 +55,17 @@ public class OrderService {
 		}
 
 		log.info("开始扣减余额");
-		Boolean deduct1 = atAccountFacade.deduct(userId, BigDecimal.TEN);
+		Boolean deduct1 = xaAccountFacade.deduct(userId, BigDecimal.TEN);
 		log.info("扣减余额结果:{}", deduct1);
 		if (!deduct1) {
 			log.info("扣减余额失败，订单回滚");
 			throw new RuntimeException("扣减余额失败");
 		}
 
-		log.info("开始修改订单状态");
-		updateOrderStatus(orderDO);
-		log.info("修改订单状态完成");
+		// XA 是强一致性，不支持可重入
+//		log.info("开始修改订单状态");
+//		updateOrderStatus(orderDO);
+//		log.info("修改订单状态完成");
 	}
 
 	private OrderDO buildOrder(Long userId, Long productId, Integer quantity) {
@@ -71,7 +75,7 @@ public class OrderService {
 		orderDO.setCount(quantity);
 		BigDecimal multiply = BigDecimal.TEN.multiply(new BigDecimal(quantity));
 		orderDO.setMoney(multiply);
-		orderDO.setStatus((byte) 0);
+		orderDO.setStatus((byte) 1); // 订单状态，0表示创建中，1表示已完结
 
 		return orderDO;
 	}

@@ -63,7 +63,7 @@
         <!--数据库连接信息-->
         <jdbcConnection
                 driverClass="com.mysql.cj.jdbc.Driver"
-                connectionURL="jdbc:mysql://192.168.8.9:3306/seata_stock?useSSL=false&amp;serverTimezone=Asia/Shanghai"
+                connectionURL="jdbc:mysql://192.168.8.9:3306/seata_order?useSSL=false&amp;serverTimezone=Asia/Shanghai"
                 userId="root"
                 password="123456">
             <!---->
@@ -86,7 +86,7 @@
         <!--javaModelGenerator : 节点用于配置实体类生成器-->
         <!--targetPackage：生成实体类存放的包名 targetProject：指定目标项目路径，可以使用绝对路径-->
         <javaModelGenerator targetProject="src/main/java"
-                            targetPackage="vip.openpark.at.stock.domain">
+                            targetPackage="vip.openpark.xa.order.domain">
             <!-- constructorBased为true就会使用构造方法入参，为false使用setter方法入参，默认为false -->
             <!--<property name="constructorBased" value="false"></property>-->
             <!--enableSubPackages 是否在targetPackage基础上生成子包。默认为false。当为true时，会将表所在 schema 名作为子包名-->
@@ -101,7 +101,7 @@
 
         <!--sqlMapGenerator : 节点用于配置 XML 生成器-->
         <sqlMapGenerator targetProject="src/main/java"
-                         targetPackage="vip.openpark.at.stock.mapper">
+                targetPackage="vip.openpark.xa.order.mapper" >
             <!--enableSubPackages ： 是否在targetPackage基础上生成子包。默认为false。当为true时，会将表所在 schema 名作为子包名-->
             <!--<property name="enableSubPackages" value="false" />-->
         </sqlMapGenerator>
@@ -112,14 +112,14 @@
              -->
         <javaClientGenerator type="XMLMAPPER"
                              targetProject="src/main/java"
-                             targetPackage="vip.openpark.at.stock.mapper">
+                             targetPackage="vip.openpark.xa.order.mapper">
             <!--enableSubPackages ： 是否在targetPackage基础上生成子包。默认为false。当为true时，会将表所在 schema 名作为子包名-->
             <!--<property name="enableSubPackages" value="false" />-->
         </javaClientGenerator>
 
 
         <!--表的配置-->
-        <table tableName="t_stock" domainObjectName="StockDO">
+        <table tableName="t_order" domainObjectName="OrderDO">
             <!-- 使用驼峰，默认为false-->
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="id" sqlStatement="mysql" identity="true"/>

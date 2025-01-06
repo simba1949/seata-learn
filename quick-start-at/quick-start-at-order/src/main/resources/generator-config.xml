@@ -85,8 +85,8 @@
         <!--生成实体类的配置-->
         <!--javaModelGenerator : 节点用于配置实体类生成器-->
         <!--targetPackage：生成实体类存放的包名 targetProject：指定目标项目路径，可以使用绝对路径-->
-        <javaModelGenerator targetPackage="vip.openpark.order.domain"
-                            targetProject="src/main/java">
+        <javaModelGenerator targetProject="src/main/java"
+                            targetPackage="vip.openpark.at.order.domain">
             <!-- constructorBased为true就会使用构造方法入参，为false使用setter方法入参，默认为false -->
             <!--<property name="constructorBased" value="false"></property>-->
             <!--enableSubPackages 是否在targetPackage基础上生成子包。默认为false。当为true时，会将表所在 schema 名作为子包名-->
@@ -100,7 +100,8 @@
         </javaModelGenerator>
 
         <!--sqlMapGenerator : 节点用于配置 XML 生成器-->
-        <sqlMapGenerator targetPackage="vip.openpark.order.mapper" targetProject="src/main/java">
+        <sqlMapGenerator targetProject="src/main/java"
+                targetPackage="vip.openpark.at.order.mapper" >
             <!--enableSubPackages ： 是否在targetPackage基础上生成子包。默认为false。当为true时，会将表所在 schema 名作为子包名-->
             <!--<property name="enableSubPackages" value="false" />-->
         </sqlMapGenerator>
@@ -109,8 +110,9 @@
                  MyBatis3：ANNOTATEDMAPPER、MIXEDMAPPER、XMLMAPPER
                  MyBtais3Simple：ANNOTATEDMAPPER、XMLMAPPER
              -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="vip.openpark.order.mapper"
-                             targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER"
+                             targetProject="src/main/java"
+                             targetPackage="vip.openpark.at.order.mapper">
             <!--enableSubPackages ： 是否在targetPackage基础上生成子包。默认为false。当为true时，会将表所在 schema 名作为子包名-->
             <!--<property name="enableSubPackages" value="false" />-->
         </javaClientGenerator>
