@@ -12,6 +12,7 @@
         <module>seata-api</module>
         <module>quick-start-at</module>
         <module>quick-start-xa</module>
+        <module>quick-start-tcc</module>
     </modules>
 
     <properties>
