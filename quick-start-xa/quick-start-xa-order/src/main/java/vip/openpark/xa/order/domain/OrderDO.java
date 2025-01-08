@@ -24,6 +24,12 @@ public class OrderDO {
     private Long id;
 
     /**
+     * 订单编码
+     */
+    @Column(name = "code")
+    private String code;
+
+    /**
      * 用户id
      */
     @Column(name = "user_id")

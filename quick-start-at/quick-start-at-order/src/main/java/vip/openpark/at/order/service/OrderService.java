@@ -67,7 +67,7 @@ public class OrderService {
 	private OrderDO buildOrder(Long userId, Long productId, Integer quantity, String code) {
 		OrderDO orderDO = new OrderDO();
 		orderDO.setCode(code);
-		orderDO.setUserId(1L);
+		orderDO.setUserId(userId);
 		orderDO.setProductId(productId);
 		orderDO.setCount(quantity);
 		BigDecimal multiply = BigDecimal.TEN.multiply(new BigDecimal(quantity));
