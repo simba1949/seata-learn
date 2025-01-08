@@ -36,7 +36,7 @@ public class OrderService {
 		log.info("全局事务id:{}", xid);
 
 		log.info("开始创建订单");
-		OrderDO orderDO = buildOrder(userId, productId, quantity);
+		OrderDO orderDO = buildOrder(userId, productId, quantity, xid);
 		int affectNum = orderDOMapper.insertSelective(orderDO);
 		if (affectNum != 1) {
 			throw new RuntimeException("创建订单失败");
@@ -64,8 +64,9 @@ public class OrderService {
 		log.info("修改订单状态完成");
 	}
 
-	private OrderDO buildOrder(Long userId, Long productId, Integer quantity) {
+	private OrderDO buildOrder(Long userId, Long productId, Integer quantity, String code) {
 		OrderDO orderDO = new OrderDO();
+		orderDO.setCode(code);
 		orderDO.setUserId(1L);
 		orderDO.setProductId(productId);
 		orderDO.setCount(quantity);
